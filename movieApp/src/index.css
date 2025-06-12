@@ -79,8 +79,52 @@
   .all-movies {
     @apply space-y-9;
 
+    & h2 {
+      @apply text-center;
+    }
+
     & ul {
       @apply grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+    }
+  }
+
+  .movie-card {
+    @apply bg-dark-100 p-3 rounded-2xl shadow-inner shadow-light-100/10;
+
+    & img {
+      @apply rounded-lg h-auto w-full;
+    }
+
+    & h3 {
+      @apply text-white font-bold text-xl line-clamp-1;
+    }
+
+    & .content {
+      @apply mt-2 flex flex-row items-center flex-wrap gap-2;
+    }
+
+    & .rating {
+      @apply flex flex-row items-center gap-1;
+    }
+
+    & .rating img {
+      @apply size-4 object-contain;
+    }
+
+    & .rating p {
+      @apply font-bold text-base text-white;
+    }
+
+    & .content span {
+      @apply text-sm text-gray-100 font-medium;
+    }
+
+    & .content .lang {
+      @apply text-base font-medium text-gray-100 capitalize;
+    }
+
+    & .content .year {
+      @apply text-base font-medium text-gray-100;
     }
   }
 
