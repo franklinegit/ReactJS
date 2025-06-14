@@ -1,12 +1,10 @@
 import React from 'react'
+import Hero from './components/Hero'
 
 const App = () => {
   return (
-    <main>
-      <h1 className='mt-5'>Zentry. Awwwards winning site. @site of the day</h1>
-      <h1>Zentry. Awwwards winning site. @site of the day</h1>
-      <h1>Zentry. Awwwards winning site. @site of the day</h1>
-      <h1>Zentry. Awwwards winning site. @site of the day</h1>
+    <main className='min-h-screen w-screen relative overflow-x-hidden'>
+      <Hero />
     </main>
   )
 }

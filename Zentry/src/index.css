@@ -1,13 +1,30 @@
 @import "tailwindcss";
 
+/* Imported fonts */
 @import url("https://fonts.cdnfonts.com/css/general-sans");
 
-/* @tailwind base;
-@tailwind components;
-@tailwind utilities; */
 
 @theme {
   --color-body: #dfdff0;
+
+  --color-blue-50: #dfdff0;
+  --color-blue-75: #dfdff2;
+  --color-blue-100: #f0f2fa;
+  --color-blue-200: #010101;
+  --color-blue-300: #4fb7dd;
+  
+  --color-violet-300: #5724ff;
+
+  --color-yellow-100: #8e983f;
+  --color-yellow-300: #edff66;
+  
+  --font-body-default: "General Sans", sans-serif;
+  --font-circular: "circular-web", sans-serif;
+  --font-general: "general", sans-serif;
+  --font-robert-medium: "robert-medium", sans-serif;
+  --font-robert-regular: "robert-regular", sans-serif;
+  --font-zentry: "zentry", sans-serif;
+  
 }
 
 @layer base {
@@ -15,7 +32,7 @@
     width: 100dvw;
     overflow-x: hidden;
     background-color: var(--color-body);
-    font-family: "General Sans", sans-serif;
+    font-family: var(--font-body-default);
   }
 
   @font-face {
@@ -42,5 +59,36 @@
   @font-face {
     font-family: "zentry";
     src: url("/fonts/zentry-regular.woff2") format("woff2");
+  }
+}
+
+@layer utilities {
+  .size-screen {
+    @apply h-dvh w-screen
+  }
+
+  .absolute-center {
+    @apply absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%];
+  }
+
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .mask-clip-path {
+    clip-path: polygon(0 0 , 100% 0, 100% 100%, 0 100%);
+  }
+
+  .special-font b {
+    font-family: "zentry";
+    font-feature-settings: "ss01" on;
+  }
+
+  .hero-heading {
+    @apply uppercase font-zentry text-5xl sm:right-10 sm:text-7xl md:text-9xl lg:text-[12rem];
+  }
+
+  .border-hsla {
+    @apply border border-white/20;
   }
 }
