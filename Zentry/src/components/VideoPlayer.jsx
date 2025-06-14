@@ -1,8 +1,9 @@
+import React from 'react'
 import { useEffect, useState } from "react";
 import {getVideoSrcDelayed} from './Hero';
 
 
-const VideoPlayer = ({ currentIndex, loadedVideos, totalVideos, handleVideoLoad }) => {
+const VideoPlayer = ({ currentIndex, loadedVideos, containerClass, handleVideoLoad }) => {
   // State to hold the video source URL. Initially empty.
   const [videoSrc, setVideoSrc] = useState('');
 
@@ -22,7 +23,7 @@ const VideoPlayer = ({ currentIndex, loadedVideos, totalVideos, handleVideoLoad 
   }, [currentIndex, loadedVideos]);
 
   return (
-    <div>
+    <div className={`size-screen ${containerClass}`}>
       {videoSrc && (
         <video
           key={videoSrc}
@@ -31,6 +32,7 @@ const VideoPlayer = ({ currentIndex, loadedVideos, totalVideos, handleVideoLoad 
           loop
           muted
           onLoadedData={handleVideoLoad}
+		  className='size-full object-cover object-center'
         />
       )}
     </div>

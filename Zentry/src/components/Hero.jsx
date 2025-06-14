@@ -104,7 +104,7 @@ const Hero = () => {
 				scrollTrigger: {
 				trigger: '#video-frame',
 				start: 'bottom 90%',
-				end: 'bottom top',
+				end: 'bottom 10%',
 				scrub: true
 			}
 		});
@@ -125,8 +125,8 @@ const Hero = () => {
 			</div>
 		)}
 
-		<div id="video-frame" className='relative size-screen z-10 overflow-hidden bg-blue-75'>
-			<div>
+		<div id="video-frame" className='relative  size-screen z-10 overflow-hidden bg-blue-75'>
+			<div className=''>
 				<div className="mask-clip-path absolute-center z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
 					<div onClick={handleMiniVideoClick} className='origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100'>
 						<video 
@@ -162,7 +162,7 @@ const Hero = () => {
 
 				<VideoPlayer 
 					currentIndex={currentIndex} loadedVideos={loadedVideos} totalVideos={totalVideos} handleVideoLoad={handleVideoLoad} 
-					className='!absolute top-0 left-0 size-full object-cover object-center'
+					containerClass="!size-screen absolute top-0 left-0 object-cover object-center"
 				/>
 
 			</div>
