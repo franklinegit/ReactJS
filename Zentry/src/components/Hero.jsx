@@ -1,6 +1,10 @@
 import React, { useRef, useState } from 'react'
 import Button from './Button';
 import { TiLocationArrow } from "react-icons/ti";
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
+
+gsap.registerPlugin(useGSAP);
 
 const Hero = () => {
 
@@ -25,6 +29,33 @@ const Hero = () => {
 	const handleVideoLoad = () => {
 		setloadedVideos((prev) => prev + 1);
 	}
+
+	useGSAP(() => {
+		if (hasClicked) {
+			gsap.set('#next-video', {
+				visibility: 'visible'
+			});
+
+			gsap.to('#next-video', {
+				transformOrigin: 'center center',
+				scale: 1,
+				width: '100%',
+				height: '100%',
+				duration: 1,
+				delay: .2,
+				ease: 'power1.inOut',
+				onStart: () => nextVideoRef.current.play()
+			});
+
+			gsap.from('#current-video', {
+				transformOrigin: 'center center',
+				scale: 0,
+				duration: 1.5,
+				delay: .2,
+				ease: 'power1.inOut'
+			});
+		}
+	}, {dependencies:[currentIndex], revertOnUpdate: true});
 
   return (
 	<div className='relative size-screen overflow-x-hidden'>
@@ -56,7 +87,7 @@ const Hero = () => {
 
 				<video 
 					src={getVideoSrc(currentIndex === totalVideos - 1 ? 1 : currentIndex)}
-					// autoPlay
+					autoPlay
 					loop
 					muted
 					className='absolute top-0 left-0 size-full object-cover object-center'
@@ -69,7 +100,7 @@ const Hero = () => {
 				G<b>a</b>ming
 			</h1>
 
-			<div className='absolute top-0 left-0 size-full'>
+			<div className='absolute top-0 left-0 size-full z-40'>
 				<div className='mt-24 px-5 sm:px-10'>
 					<h1 className='special-font hero-heading text-blue-100'>
 						Redefi<b>n</b>e
