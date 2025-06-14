@@ -9,9 +9,8 @@ const VideoPlayer = ({ currentIndex, loadedVideos, totalVideos, handleVideoLoad 
   // useEffect to handle the asynchronous video source fetching
   useEffect(() => {
     const fetchVideoSource = async () => {
-      const nextIndex = currentIndex === totalVideos ? 1 : currentIndex;
+	  const nextIndex = currentIndex;
       
-      // Call your async function and wait for the result
       const newSrc = await getVideoSrcDelayed(nextIndex, loadedVideos);
       
       // Once we have the source, update the state

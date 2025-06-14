@@ -42,20 +42,6 @@ const Hero = () => {
 
 	const getVideoSrc = (index) => `/videos/hero-${index}.mp4`;
 
-	// const getVideoSrcDelayed = async (index) => {
-	// 	return new Promise((resolve) => {
-	// 		const path = `/videos/hero-${index}.mp4`;
-
-	// 		if (loadedVideos === 0) {
-	// 			resolve(path);
-	// 		}
-
-	// 		else {
-	// 			setTimeout(() => resolve(path), 1000);
-	// 		}
-	// 	});
-	// }
-
 	const getVideoSrc2 = (index) => {
 		getVideoSrcDelayed(index);
 	}
