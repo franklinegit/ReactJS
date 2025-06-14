@@ -1,11 +1,26 @@
 import React, { useRef, useState, useEffect } from 'react'
 import Button from './Button';
+import VideoPlayer from './VideoPlayer';
 import { TiLocationArrow } from "react-icons/ti";
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import ScrollTrigger from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
+
+export const getVideoSrcDelayed = async (index, loadedVideos) => {
+	return new Promise((resolve) => {
+		const path = `/videos/hero-${index}.mp4`;
+
+		if (loadedVideos === 0) {
+			resolve(path);
+		}
+
+		else {
+			setTimeout(() => resolve(path), 1500);
+		}
+	});
+}
 
 const Hero = () => {
 
@@ -27,6 +42,23 @@ const Hero = () => {
 
 	const getVideoSrc = (index) => `/videos/hero-${index}.mp4`;
 
+	// const getVideoSrcDelayed = async (index) => {
+	// 	return new Promise((resolve) => {
+	// 		const path = `/videos/hero-${index}.mp4`;
+
+	// 		if (loadedVideos === 0) {
+	// 			resolve(path);
+	// 		}
+
+	// 		else {
+	// 			setTimeout(() => resolve(path), 1000);
+	// 		}
+	// 	});
+	// }
+
+	const getVideoSrc2 = (index) => {
+		getVideoSrcDelayed(index);
+	}
 
 	const handleVideoLoad = () => {
 		setloadedVideos((prev) => prev + 1);
@@ -133,13 +165,18 @@ const Hero = () => {
 					onLoadedData={handleVideoLoad}
 				/>
 
-				<video 
+				{/* <video 
 					src={getVideoSrc(currentIndex === totalVideos - 1 ? 1 : currentIndex)}
 					autoPlay
 					loop
 					muted
 					className='absolute top-0 left-0 size-full object-cover object-center'
 					onLoadedData={handleVideoLoad}
+				/> */}
+
+				<VideoPlayer 
+					currentIndex={currentIndex} loadedVideos={loadedVideos} totalVideos={totalVideos} handleVideoLoad={handleVideoLoad} 
+					className='!absolute top-0 left-0 size-full object-cover object-center'
 				/>
 
 			</div>
