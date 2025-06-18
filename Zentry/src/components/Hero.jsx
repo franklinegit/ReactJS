@@ -42,10 +42,6 @@ const Hero = () => {
 
 	const getVideoSrc = (index) => `/videos/hero-${index}.mp4`;
 
-	const getVideoSrc2 = (index) => {
-		getVideoSrcDelayed(index);
-	}
-
 	const handleVideoLoad = () => {
 		setloadedVideos((prev) => prev + 1);
 	}
@@ -92,26 +88,23 @@ const Hero = () => {
 	useGSAP(() => {
 		gsap.fromTo('#video-frame', {
 			clipPath: 'polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)',
-			borderRadius: '0 0 0% 0%',
+			borderRadius: 0,
 			ease: 'power1.inOut',
-			// rotateX: '0',
-			// transformOrigin: 'center bottom',
+
 		}, {
 			clipPath: 'polygon(25% 0%, 75% 0%, 95% 80%, 5% 90%)',
-			borderRadius: '0 0 10% 10%',
-			// rotateX: '45',
-			// transformOrigin: 'center bottom',
+			borderRadius: 20,
 				scrollTrigger: {
 				trigger: '#video-frame',
 				start: 'bottom 90%',
 				end: 'bottom 10%',
-				scrub: true
+				scrub: 0.5
 			}
 		});
 	});
 
   return (
-	<div className='relative size-screen overflow-x-hidden'>
+	<div id='home' className='relative size-screen overflow-x-hidden'>
 
 		{isLoading && (
 			<div className='flex-center size-screen absolute z-[100] overflow-hidden bg-violet-50'>
