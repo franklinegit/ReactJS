@@ -24,7 +24,7 @@ const App = () => {
 
       <Contact />
 
-      {/* <Footer /> */}
+      <Footer />
 
     </main>
   )
