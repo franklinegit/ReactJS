@@ -5,6 +5,7 @@ import MovieCard from './components/MovieCard'
 import {useDebounce} from 'react-use'
 import { updateSearchCount, getTrendingMovies } from './appwrite'
 import { Analytics } from '@vercel/analytics/react';
+import { fetchFromTMDB } from './API/tmdbProxy';
 
 const API_BASE_URL = 'https://api.themoviedb.org/3';
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -30,47 +31,70 @@ const App = () => {
 
 
 	// Fetch Movies
+	// const fetchMovies = async (query = '') => {
+	// 	setisLoading(true);
+	// 	seterrorMessage('');
+
+	// 	try {
+	// 		const endpoint = query ? 
+	// 		`${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` :
+	// 		`${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+
+	// 		const response = await fetch(endpoint, API_OPTIONS);
+
+	// 		if (!response.ok) {
+	// 			throw new Error(`Failed to fetch movies`);
+	// 		}
+
+	// 		const data = await response.json();
+
+	// 		console.log(data);
+
+	// 		if (data.Response === 'False') {
+	// 			seterrorMessage(data.Error || 'Failed to fetch movies');
+	// 			setmovieList([]);
+	// 			return;
+	// 		}
+
+	// 		setmovieList(data.results || []);
+
+	// 		if (query && data.results[0]) {
+	// 			updateSearchCount(query, data.results[0]);
+	// 		}
+	// 	}
+
+	// 	catch(e) {
+	// 		console.error(`Error fetching movies: ${e}`);
+	// 		seterrorMessage(`Error fetching movies. Please try again later.`)
+	// 	}
+
+	// 	finally {
+	// 		setisLoading(false);
+	// 	}
+	// }
+
+
 	const fetchMovies = async (query = '') => {
 		setisLoading(true);
 		seterrorMessage('');
 
 		try {
-			const endpoint = query ? 
-			`${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` :
-			`${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
-
-			const response = await fetch(endpoint, API_OPTIONS);
-
-			if (!response.ok) {
-				throw new Error(`Failed to fetch movies`);
-			}
-
-			const data = await response.json();
-
-			console.log(data);
-
-			if (data.Response === 'False') {
-				seterrorMessage(data.Error || 'Failed to fetch movies');
-				setmovieList([]);
-				return;
-			}
-
-			setmovieList(data.results || []);
-
-			if (query && data.results[0]) {
-				updateSearchCount(query, data.results[0]);
-			}
+		const endpoint = query ? 'search/movie' : 'discover/movie';
+		const data = await fetchFromTMDB(endpoint, query);
+		
+		setmovieList(data.results || []);
+		
+		if (query && data.results[0]) {
+			updateSearchCount(query, data.results[0]);
 		}
-
-		catch(e) {
-			console.error(`Error fetching movies: ${e}`);
-			seterrorMessage(`Error fetching movies. Please try again later.`)
+		} catch (error) {
+		console.error('Fetch error:', error);
+		seterrorMessage('Error fetching movies. Please try again later.');
+		} finally {
+		setisLoading(false);
 		}
+	};
 
-		finally {
-			setisLoading(false);
-		}
-	}
 
 	const loadTrendingMovies = async () => {
 		try {
